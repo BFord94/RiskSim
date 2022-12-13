@@ -1,0 +1,2 @@
+# RiskSim
+A small series of tools for introductory market risk calculations. We demonstrate a basic Brownian Motion Monte-Carlo simulation model for stock prices, calibrated using historical data, some simple risk calculations using historical simulation, and finally show how a model can evaluated by backtesting.
