@@ -14,7 +14,7 @@ def grab_hist_data(stock_name, start_date, end_date):
 	stock.get_data(start_date, end_date)
 	# Compute returns
 	stock.data["Returns"] = stock.data["Adj Close"] \
-	- stock.data["Adj Close"].shift(1)
+							- stock.data["Adj Close"].shift(1)
 	return stock.data
 
 def var(stock_name, start_date, end_date, horizon, percentile):

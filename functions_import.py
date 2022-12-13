@@ -7,3 +7,4 @@ import os
 import sys
 from pandas_datareader import data as wb
 from scipy.stats import norm
+from scipy.stats import binom
