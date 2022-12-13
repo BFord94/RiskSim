@@ -15,6 +15,13 @@ Included are functions to compute the Value-at-Risk for a stock price, and expec
 ### Backtesting
 Finally, we also include some functions to demonstrate backtesting, used to test a projection model against historical data, by comparing what the model would have predicted in the past against what actually happened.
 
+## Future work
+Alternative simulation models, such as Heston
+Pricing functionality for other derivatives
+Portfolio class to deal with multiple equities
+Counterparty credit risk implementation (with collateral etc)
+
 ### Author
 Dr. Billy Ford
+
 billyford1994@gmail.com
