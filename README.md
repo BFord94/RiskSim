@@ -16,6 +16,7 @@ Included are functions to compute the Value-at-Risk for a stock price, and expec
 Finally, we also include some functions to demonstrate backtesting, used to test a projection model against historical data, by comparing what the model would have predicted in the past against what actually happened.
 
 ## Future work
+- Change calibration to dynamic (currently fixes to a single drift/volatility)
 - Alternative simulation models, such as Heston  
 - Pricing functionality for other derivatives  
 - Portfolio class to deal with multiple equities  
