@@ -5,6 +5,7 @@ import math as m
 import datetime
 import os
 import sys
-from pandas_datareader import data as wb
+from pandas_datareader import data as pdr
+import yfinance as yfin
 from scipy.stats import norm
 from scipy.stats import binom

@@ -35,4 +35,11 @@ def generate_binomial_distribution(n, p):
 		p - Probability of the first outcome
 	"""
 	# Initialise x values
-	x_list = [i for i in range(n)]
+	x = np.arange(binom.ppf(0.01, n, p), binom.ppf(0.99, n, p))
+	# Generate binomial distribution
+	binomial = binom(n, p)
+	plt.bar(x, binomial.pmf(x))
+	plt.xlabel("Number of exceptions")
+	plt.ylabel("Probability")
+	plt.show()
+	return binomial

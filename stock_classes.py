@@ -33,8 +33,12 @@ class StockData:
 		start_date, end_date = pd.to_datetime(start_date, format='%d/%m/%Y'), \
 							   pd.to_datetime(end_date, format='%d/%m/%Y')
 		ticker = self.name
-		data = wb.DataReader(ticker, data_source = 'yahoo', \
-			   start = start_date, end = end_date)
+		try:
+			data = pdr.DataReader(ticker, data_source = 'yahoo', \
+			   	start = start_date, end = end_date)
+		except:
+			yfin.pdr_override()
+			data = pdr.get_data_yahoo(ticker, start = start_date, end = end_date)
 		data = data[["Adj Close"]]
 		self.data = data
 
