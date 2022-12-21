@@ -17,10 +17,9 @@ Finally, we also include some functions to demonstrate backtesting, used to test
 
 ## Future work
 - Change calibration to dynamic (currently fixes to a single drift/volatility)
-- Alternative simulation models, such as Heston  
-- Pricing functionality for other derivatives  
+- Alternative simulation models, such as Heston   
 - Portfolio class to deal with multiple equities  
-- Counterparty credit risk implementation (with collateral etc)
+- Counterparty credit risk implementation 
 
 ### Author
 Dr. Billy Ford  

@@ -38,7 +38,7 @@ def generate_binomial_distribution(n, p):
 	binomial = binom(n, p)
 	return binomial
 
-def compute_p_value(n_observations, n_exceptions, p):
+def compute_p_value(n_observations, n_exceptions, p, plots = False):
 	"""
 	Compute the p-value representing the probability of obtaining less than the
 	observed number of backtesting exceptions
@@ -48,21 +48,40 @@ def compute_p_value(n_observations, n_exceptions, p):
 		n_exceptions - Number of observed backtesting exceptions
 		p - Probability of a backtesting exception, i.e. one minus the
 			VaR percentile
+		plots - Boolean, if True print plots
 	"""
 	# Generate the binomial
 	binomial = generate_binomial_distribution(n_observations, p)
 	# Initialise x values
 	x = np.arange(binom.ppf(0.01, n_observations, p), \
 				  binom.ppf(0.99, n_observations, p))
+	# Compute p-value
+	p_value = 1-binomial.cdf(n_exceptions)
 	# Plot binomial
-	plt.bar(x, binomial.pmf(x))
-	plt.vlines(n_exceptions, ymin=0, ymax=0.1, color='r', \
-			label="Observed # exceptions", linestyle='dashed')
-	plt.xlabel("Number of exceptions")
-	plt.ylabel("Probability")
-	plt.show()
-	# Find p-value
-	p_value = binomial.cdf(n_exceptions)
+	if plots:
+		plt.bar(x, binomial.pmf(x))
+		plt.title("Binomial distribution")
+		plt.vlines(n_exceptions, ymin=0, ymax=max(binomial.pmf(x)),\
+				   color='r', label="Observed # exceptions", \
+				   linestyle='dashed')
+		plt.xlabel("Number of exceptions")
+		plt.ylabel("Probability")
+		plt.legend(loc='best')
+		plt.show()
+		# Plot CDF
+		plt.bar(x, binomial.cdf(x))
+		# Set axis limit 
+		plt.xlim(left = min(x)-2)
+		# Add observed number of exceptions to axis ticks
+		plt.yticks(list(plt.yticks()[0]) + [p_value])
+		plt.vlines(n_exceptions, ymin=0, ymax=1, color='r', \
+				   label="Observed # exceptions", linestyle='dashed')
+		plt.hlines(binomial.cdf(n_exceptions), xmin=min(x)-2, xmax=n_exceptions, \
+				   color='g',label="1 - p-value", linestyle='dashed')
+		plt.xlabel("Number of exceptions")
+		plt.ylabel("Cumulative Probability")
+		plt.legend(loc='best')
+		plt.show()
 	return p_value 
 
 

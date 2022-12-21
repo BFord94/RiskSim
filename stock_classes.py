@@ -34,11 +34,11 @@ class StockData:
 							   pd.to_datetime(end_date, format='%d/%m/%Y')
 		ticker = self.name
 		try:
-			data = pdr.DataReader(ticker, data_source = 'yahoo', \
+			data = pdry.DataReader(ticker, data_source = 'yahoo', \
 			   	start = start_date, end = end_date)
 		except:
-			yfin.pdr_override()
-			data = pdr.get_data_yahoo(ticker, start = start_date, end = end_date)
+			yfin.pdry_override()
+			data = pdry.get_data_yahoo(ticker, start = start_date, end = end_date)
 		data = data[["Adj Close"]]
 		self.data = data
 
@@ -149,7 +149,26 @@ class StockModel:
 		mu = mu - sigma**2/2
 		self.mu = mu
 		self.sigma = sigma
-		self.calibrated_state = "Data"
+		self.calibrated_state = "Data (static)"
+
+	def rolling_calibrate(self, start_date, end_date):
+		"""
+		TODO
+		Use historical data to calibrate dynamic model parameters
+		Parameters:
+			start_date - First date to begin calibration
+			end_date - Final date for calibration			
+		"""
+		# Get data
+		stock = StockData(self.stock_name)
+		stock.get_data(start_date, end_date)
+		data = stock.data
+		self.calibration_start_date = start_date 
+		self.calibration_end_date = end_date
+		# TODO: rolling calibration methodologt
+		self.mu = mu
+		self.sigma = sigma
+		self.calibrated_state = "Data (rolling)"
 
 	def simulate(self, start_date, end_date, npaths):
 		"""
@@ -210,12 +229,16 @@ class StockModel:
 		Define print output for object
 		"""
 		text = "Stock name: "+str(self.stock_name)
-		if self.calibrated_state == "Data":
+		if "Data" in self.calibrated_state:
 			text += "\nModel calibrated using data for " \
 				 + str(self.calibration_start_date)+" to " \
 				 + str(self.calibration_end_date)
-			text += "\nModel parameters mu: " + str(self.mu) + ", sigma: " \
-				 + str(self.sigma)
+			if "static" in self.calibrated_state:
+				text += "\nStatic calibration performed"
+				text += "\nModel parameters mu: " + str(self.mu) + ", sigma: " \
+					 + str(self.sigma)
+			if "rolling" in self.calibrated_state:
+				text += "\nRolling calibration performed"
 		elif self.calibrated_state == "Manual":
 			text += "\nModel calibrated manually\n"
 			text += "\nModel parameters mu: " + str(self.mu) + ", sigma: " \
