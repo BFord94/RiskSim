@@ -73,7 +73,7 @@ def compute_p_value(n_observations, n_exceptions, p, plots = False):
 		# Set axis limit 
 		plt.xlim(left = min(x)-2)
 		# Add observed number of exceptions to axis ticks
-		plt.yticks(list(plt.yticks()[0]) + [1-p_value])
+		plt.yticks(list(plt.yticks()[0]) + [binomial.cdf(n_exceptions)])
 		plt.vlines(n_exceptions, ymin=0, ymax=1, color='r', \
 				   label="Observed # exceptions", linestyle='dashed')
 		plt.hlines(binomial.cdf(n_exceptions), xmin=min(x)-2, xmax=n_exceptions, \
