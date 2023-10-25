@@ -37,7 +37,7 @@ class StockData:
 			data = pdr.DataReader(ticker, data_source = 'yahoo', \
 			   	start = start_date, end = end_date)
 		except:
-			yfin.pdry_override()
+			yfin.pdr_override()
 			data = pdr.get_data_yahoo(ticker, start = start_date, end = end_date)
 		data = data[["Adj Close"]]
 		self.data = data
@@ -165,7 +165,7 @@ class StockModel:
 		data = stock.data
 		self.calibration_start_date = start_date 
 		self.calibration_end_date = end_date
-		# TODO: rolling calibration methodology
+		# TODO: rolling calibration methodologt
 		self.mu = mu
 		self.sigma = sigma
 		self.calibrated_state = "Data (rolling)"
