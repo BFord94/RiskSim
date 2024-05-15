@@ -56,7 +56,7 @@ def compute_p_value(n_observations, n_exceptions, p, plots = False):
 	x = np.arange(binom.ppf(0.01, n_observations, p), \
 				  binom.ppf(0.99, n_observations, p))
 	# Compute p-value
-	p_value = 1-binomial.cdf(n_exceptions)
+	p_value = binomial.cdf(n_exceptions)
 	# Plot binomial
 	if plots:
 		plt.bar(x, binomial.pmf(x))
